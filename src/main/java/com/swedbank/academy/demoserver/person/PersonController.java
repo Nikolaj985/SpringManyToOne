@@ -15,13 +15,14 @@ import java.util.List;
 public class PersonController {
 
     PersonService personService;
+
     @Autowired
     public PersonController(PersonService personService) {
         this.personService = personService;
     }
 
     @GetMapping(produces = "application/json")
-    public ResponseEntity<List<Person>> getPersons(){
+    public ResponseEntity<List<Person>> getPersons() {
         List<Person> list = personService.getAll();
         return new ResponseEntity<List<Person>>(list, HttpStatus.OK);
     }
@@ -32,8 +33,6 @@ public class PersonController {
             Person person = personService.getById(pid);
             return new ResponseEntity<Person>(person, HttpStatus.OK);
         } catch (PersonNotFoundException ex) {
-
-            //log.error("getPersonByPid", ex);
             return ResponseEntity.notFound().build();
         }
     }
@@ -44,29 +43,27 @@ public class PersonController {
             personService.delete(pid);
             return ResponseEntity.ok().build();
         } catch (PersonNotFoundException e) {
-            //log.error("deletePerson", e);
             return ResponseEntity.notFound().build();
         }
 
     }
-  @PostMapping("insert")
-    public ResponseEntity<Void> addNewPerson(@Valid @RequestBody Person person){
-      try {
-          personService.addPerson(person);
-          return ResponseEntity.ok().build();
-      } catch (PersonAlreadyExistException e) {
-          //log.error("deletePerson", e);
-          return ResponseEntity.notFound().build();
-      }
+
+    @PostMapping("add")
+    public ResponseEntity<Void> addNewPerson(@Valid @RequestBody Person person) {
+        try {
+            personService.addPerson(person);
+            return ResponseEntity.ok().build();
+        } catch (PersonAlreadyExistException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
-    @PutMapping("/edit/{id}")
-    public ResponseEntity<Void> editPerson(@PathVariable(value = "pid") long pid, @Valid @RequestBody Person person){
+    @PutMapping("/edit/{pid}")
+    public ResponseEntity<Void> editPerson(@PathVariable(value = "pid") long pid, @Valid @RequestBody Person person) {
         try {
             personService.editPerson(pid, person);
             return ResponseEntity.ok().build();
         } catch (PersonNotFoundException e) {
-            //log.error("deletePerson", e);
             return ResponseEntity.notFound().build();
         }
     }

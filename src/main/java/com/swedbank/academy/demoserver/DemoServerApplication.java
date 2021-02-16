@@ -8,8 +8,8 @@ import org.springframework.context.annotation.ComponentScan;
 @ComponentScan({"com.swedbank.academy.demoserver.person"})
 public class DemoServerApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(DemoServerApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(DemoServerApplication.class, args);
+    }
 
 }

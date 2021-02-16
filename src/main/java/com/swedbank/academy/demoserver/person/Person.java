@@ -14,7 +14,7 @@ import javax.validation.constraints.NotBlank;
 @Entity
 @Data
 @NoArgsConstructor
-@Table(name="person")
+@Table(name = "person")
 public class Person {
     @Id
     @NotNull
@@ -22,17 +22,17 @@ public class Person {
 
     @NotNull
     @NotBlank
-    @Column(name="first_name")
+    @Column(name = "first_name")
     private String name;
 
     @NotNull
     @NotBlank
-    @Column(name="middle_name")
+    @Column(name = "middle_name")
     private String middlename;
 
     @NotNull
     @NotBlank
-    @Column(name="last_name")
+    @Column(name = "last_name")
     private String lastname;
     private String email;
     private String phone;
