@@ -47,6 +47,7 @@ public class PersonServiceImpl implements PersonService {
     @Override
     public void editPerson(long pid, Person person) throws PersonNotFoundException {
         Person personToEdit = personRepository.findById(pid).orElseThrow(() -> new PersonNotFoundException(pid));
+        personToEdit.setPid(person.getPid());
         personToEdit.setName(person.getName());
         personToEdit.setMiddlename(person.getMiddlename());
         personToEdit.setLastname(person.getLastname());
