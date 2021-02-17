@@ -39,6 +39,11 @@ public class Person {
     private String email;
     private String phone;
 
+
+    @Column(name = "country_id")
+    private long countryId;
+
+
     @ManyToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST }, fetch = FetchType.EAGER)
     @JoinTable(name = "person_group", joinColumns = @JoinColumn(name = "pid", referencedColumnName = "pid"), inverseJoinColumns = @JoinColumn(name = "group_id", referencedColumnName = "id"))
     @ToString.Exclude

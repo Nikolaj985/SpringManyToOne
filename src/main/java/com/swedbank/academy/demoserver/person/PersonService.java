@@ -1,6 +1,5 @@
 package com.swedbank.academy.demoserver.person;
 
-import com.swedbank.academy.demoserver.person.exception.PersonAlreadyExistException;
 import com.swedbank.academy.demoserver.person.exception.PersonNotFoundException;
 
 import java.util.List;
