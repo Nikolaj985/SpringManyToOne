@@ -1,11 +1,11 @@
 package com.swedbank.academy.demoserver.person;
 
-import com.swedbank.academy.demoserver.person.exception.PersonAlreadyExistException;
 import com.swedbank.academy.demoserver.person.exception.PersonNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PersonServiceImpl implements PersonService {
@@ -23,10 +23,10 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public Person getById(long pid) throws PersonNotFoundException {
+    public Person getById(final long pid) throws PersonNotFoundException {
         Person person = personRepository.findById(pid).orElseThrow(() -> new PersonNotFoundException(pid));
-
         return person;
+
     }
 
     @Override
@@ -36,22 +36,38 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public void addPerson(Person person) throws PersonAlreadyExistException {
-        if (personRepository.existsById(person.getPid())) {
-            throw new PersonAlreadyExistException(person);
-        } else {
+    public boolean save(Person person) {
+        Optional<Person> p = personRepository.findById(person.getPid());
+        if (p.isPresent())
+            return false;
+        else {
             personRepository.save(person);
+            return true;
         }
     }
 
     @Override
-    public void editPerson(long pid, Person person) throws PersonNotFoundException {
-        Person personToEdit = personRepository.findById(pid).orElseThrow(() -> new PersonNotFoundException(pid));
-        personToEdit.setName(person.getName());
-        personToEdit.setMiddlename(person.getMiddlename());
-        personToEdit.setLastname(person.getLastname());
-        personToEdit.setEmail(person.getEmail());
-        personToEdit.setPhone(person.getPhone());
-        personRepository.save(personToEdit);
+    public boolean update(Person person) throws PersonNotFoundException {
+        boolean doneUpdate = false;
+        long pid = person.getPid();
+        Optional<Person> p = personRepository.findById(pid);
+        if (p.isPresent()) {
+            personRepository.save(person);
+            doneUpdate = true;
+        }
+     else {
+           throw new PersonNotFoundException(pid);
+        }
+        return doneUpdate;
     }
+
+    @Override
+    public void saveAndFlush(Person person) {
+        personRepository.saveAndFlush(person);
+    }
+
+
+
+
+
 }

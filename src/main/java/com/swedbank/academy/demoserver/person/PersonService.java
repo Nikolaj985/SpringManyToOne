@@ -7,13 +7,19 @@ import java.util.List;
 
 public interface PersonService {
     List<Person> getAll();
+    /** READ*/
+    public Person getById(long pid) throws PersonNotFoundException;
+    /** DELETE*/
+    public void delete(long pid) throws PersonNotFoundException;
+    /** CREATE*/
+    public boolean save(Person person);
+    /** UPDATE */
+    public boolean update(Person person)throws PersonNotFoundException;
 
-    Person getById(long pid) throws PersonNotFoundException;
+    public void saveAndFlush(Person person);
 
-    void delete(long pid) throws PersonNotFoundException;
 
-    void addPerson(Person person) throws PersonAlreadyExistException;
 
-    void editPerson(long pid, Person person) throws PersonNotFoundException;
+
 
 }
