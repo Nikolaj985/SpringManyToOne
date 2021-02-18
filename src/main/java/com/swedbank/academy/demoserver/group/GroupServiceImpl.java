@@ -2,6 +2,7 @@ package com.swedbank.academy.demoserver.group;
 
 import com.swedbank.academy.demoserver.group.exception.GroupExistsException;
 import com.swedbank.academy.demoserver.group.exception.GroupNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,6 +13,7 @@ public class GroupServiceImpl implements GroupService {
 
     private GroupRepository groupRepository;
 
+    @Autowired
     public GroupServiceImpl(GroupRepository groupRepository) {
         this.groupRepository = groupRepository;
     }

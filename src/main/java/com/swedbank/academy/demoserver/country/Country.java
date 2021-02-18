@@ -1,11 +1,13 @@
 package com.swedbank.academy.demoserver.country;
 
 
+import com.swedbank.academy.demoserver.person.Person;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Data
@@ -28,9 +30,9 @@ public class Country {
     @Column(name = "country_code")
     private  String countryCode;
 
-    @NonNull
-    private  String nationality;
 
+    //@OneToMany(mappedBy="country")
+    //private Set<Person> persons;
 
 
 }

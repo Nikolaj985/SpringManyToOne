@@ -11,8 +11,8 @@ CREATE TABLE person (
    );
 
 --Person data
-insert into person (pid, first_name, middle_name, last_name, email, phone) values (38202020577,'Testas', '',  'Testauskas', 'test@test.com', '+37060035645' );
+insert into person (pid, first_name, middle_name, last_name, email, phone, country_id) values (38202020577,'Testas', '',  'Testauskas', 'test@test.com', '+37060035645', 2 );
 insert into person (pid, first_name, middle_name, last_name, email, phone, country_id) values (38202020578,'Testas', '',  'Testauskas1', 'test@test.com', '+37060035645', 1 );
-insert into person (pid, first_name, middle_name, last_name, email, phone) values (38202020579,'Testas', '',  'Testauskas2', 'test@test.com', '+37060035645' );
+insert into person (pid, first_name, middle_name, last_name, email, phone, country_id) values (38202020579,'Testas', '',  'Testauskas2', 'test@test.com', '+37060035645', 3 );
 
 

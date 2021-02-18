@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan({"com.swedbank.academy.demoserver.person", "com.swedbank.academy.demoserver.group"})
+@ComponentScan({"com.swedbank.academy.demoserver.person", "com.swedbank.academy.demoserver.group", "com.swedbank.academy.demoserver.country"})
 public class DemoServerApplication {
 
     public static void main(String[] args) {

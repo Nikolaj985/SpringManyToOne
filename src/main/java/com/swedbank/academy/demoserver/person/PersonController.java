@@ -1,5 +1,7 @@
 package com.swedbank.academy.demoserver.person;
 
+import com.swedbank.academy.demoserver.country.Country;
+import com.swedbank.academy.demoserver.country.CountryService;
 import com.swedbank.academy.demoserver.group.Group;
 import com.swedbank.academy.demoserver.group.GroupService;
 import com.swedbank.academy.demoserver.group.exception.GroupNotFoundException;
@@ -22,12 +24,17 @@ public class PersonController {
 
     private PersonService personService;
     private GroupService groupService;
+    private CountryService countryService;
 
     @Autowired
-    public PersonController(PersonService personService, GroupService groupService) {
+    public PersonController(PersonService personService, GroupService groupService, CountryService countryService) {
         this.personService = personService;
         this.groupService = groupService;
+        this.countryService = countryService;
     }
+
+
+
 
     @GetMapping(produces = "application/json")
     public ResponseEntity<List<Person>> getPersons() {
@@ -65,8 +72,8 @@ public class PersonController {
     @DeleteMapping("{pid}")
     public ResponseEntity<Void> deletePerson(@PathVariable("pid") Long pid) {
 
-            personService.delete(pid);
-            return ResponseEntity.ok().build();
+        personService.delete(pid);
+        return ResponseEntity.ok().build();
     }
 
     //New code
@@ -118,6 +125,15 @@ public class PersonController {
             return ResponseEntity.notFound().build();
         }
 
+    }
+
+    //Home work
+
+    @GetMapping("{pid}/country")
+    public ResponseEntity<Country> getNationality(@PathVariable("pid") long pid) {
+        Person person = personService.getById(pid);
+        Country country = countryService.getById(person.getCountry().getId());
+        return new ResponseEntity<Country>(country, HttpStatus.OK);
     }
 
 

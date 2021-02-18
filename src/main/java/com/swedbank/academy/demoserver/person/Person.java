@@ -3,6 +3,7 @@ package com.swedbank.academy.demoserver.person;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
+import com.swedbank.academy.demoserver.country.Country;
 import com.swedbank.academy.demoserver.group.Group;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -40,17 +41,22 @@ public class Person {
     private String phone;
 
 
-    @Column(name = "country_id")
-    private long countryId;
+    //@Column(name = "country_id")
+    //private long countryId;
+
+    @ManyToOne
+    @JoinColumn(name = "country_id")
+    private Country country;
 
 
-    @ManyToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST }, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.EAGER)
     @JoinTable(name = "person_group", joinColumns = @JoinColumn(name = "pid", referencedColumnName = "pid"), inverseJoinColumns = @JoinColumn(name = "group_id", referencedColumnName = "id"))
     @ToString.Exclude
     @JsonIgnore
     @EqualsAndHashCode.Exclude
     private Set<Group> groups;
 
-
-
+    public void setCountry(Country country) {
+        this.country = country;
+    }
 }
