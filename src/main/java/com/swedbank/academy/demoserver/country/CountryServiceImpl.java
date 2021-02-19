@@ -1,7 +1,9 @@
 package com.swedbank.academy.demoserver.country;
 
+import com.swedbank.academy.demoserver.country.exception.CountryIsUsedException;
 import com.swedbank.academy.demoserver.country.exception.CountryNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -46,6 +48,10 @@ public class CountryServiceImpl implements CountryService{
     @Override
     public void delete(long id) {
         Country countryForDeletion = countryRepository.findById(id).orElseThrow(()->new CountryNotFoundException(id));
-        countryRepository.delete(countryForDeletion);
+        try {
+            countryRepository.delete(countryForDeletion);
+        }catch (DataIntegrityViolationException e){
+            throw new CountryIsUsedException();
+        }
     }
 }

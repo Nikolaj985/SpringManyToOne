@@ -1,5 +1,6 @@
 package com.swedbank.academy.demoserver.country;
 
+import com.swedbank.academy.demoserver.country.exception.CountryIsUsedException;
 import com.swedbank.academy.demoserver.country.exception.CountryNotFoundException;
 
 import org.springframework.dao.DataIntegrityViolationException;
@@ -16,8 +17,11 @@ public class CountryExceptionController {
     }
     @ExceptionHandler(value = DataIntegrityViolationException.class)
     public ResponseEntity<Object> exception(DataIntegrityViolationException exception) {
-        return new ResponseEntity<>("Country already exist!" , HttpStatus.NOT_IMPLEMENTED);
+        return new ResponseEntity<>("Country already exist!"+ exception.getMessage(), HttpStatus.NOT_IMPLEMENTED);
     }
-
+    @ExceptionHandler(value = CountryIsUsedException.class)
+    public ResponseEntity<Object> exception(CountryIsUsedException exception) {
+        return new ResponseEntity<>(exception.getMessage(), HttpStatus.NOT_IMPLEMENTED);
+    }
 
 }

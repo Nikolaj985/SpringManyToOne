@@ -36,7 +36,11 @@ public class CountryController {
             countryService.save(country);
             return new ResponseEntity<Void>(HttpStatus.OK);
     }
-
+    @DeleteMapping("{id}")
+    public ResponseEntity<Void> deleteCountry(@PathVariable("id") long id) {
+        countryService.delete(id);
+        return new ResponseEntity<Void>(HttpStatus.OK);
+    }
 
 
 

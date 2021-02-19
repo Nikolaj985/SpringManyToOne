@@ -33,6 +33,9 @@ public class Country {
     @Column(name = "country_code")
     private String countryCode;
 
+   // @OneToMany
+   // @JoinColumn(name="country_id")
+   // private Set<Person> personSet;
 
     // @OneToMany(targetEntity=Person.class, mappedBy="country",cascade=CascadeType.ALL, fetch = FetchType.LAZY)
     // private List<Person> user = new ArrayList<>();
