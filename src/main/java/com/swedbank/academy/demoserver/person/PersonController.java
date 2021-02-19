@@ -2,6 +2,7 @@ package com.swedbank.academy.demoserver.person;
 
 import com.swedbank.academy.demoserver.country.Country;
 import com.swedbank.academy.demoserver.country.CountryService;
+import com.swedbank.academy.demoserver.country.exception.CountryNotFoundException;
 import com.swedbank.academy.demoserver.group.Group;
 import com.swedbank.academy.demoserver.group.GroupService;
 import com.swedbank.academy.demoserver.group.exception.GroupNotFoundException;
@@ -124,6 +125,9 @@ public class PersonController {
     @GetMapping("{pid}/country")
     public ResponseEntity<Country> getNationality(@PathVariable("pid") long pid) {
         Person person = personService.getById(pid);
+                if(person.getCountry() == null){
+                    throw new CountryNotFoundException("Person does not have associated country");
+                }
         return new ResponseEntity<Country>(person.getCountry(), HttpStatus.OK);
     }
 

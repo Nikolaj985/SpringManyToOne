@@ -6,4 +6,8 @@ public class CountryNotFoundException extends RuntimeException {
     public CountryNotFoundException(long message) {
         super("Country with id: "+  message+" does not exist!");
     }
+
+    public CountryNotFoundException(String message) {
+        super(message);
+    }
 }
