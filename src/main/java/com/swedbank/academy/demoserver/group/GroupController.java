@@ -20,16 +20,18 @@ public class GroupController {
 
     private static final Logger log = LoggerFactory.getLogger(GroupController.class);
     private GroupService groupService;
+
     @Autowired
-    public GroupController( GroupService groupService){
+    public GroupController(GroupService groupService) {
         this.groupService = groupService;
     }
 
     @GetMapping(produces = "application/json")
-    public ResponseEntity<List<Group>> getGroups(){
+    public ResponseEntity<List<Group>> getGroups() {
         List<Group> list = groupService.getAll();
         return new ResponseEntity<List<Group>>(list, HttpStatus.OK);
     }
+
     @GetMapping("{id}")
     public ResponseEntity<Group> getGroupById(@PathVariable final long id) {
 
@@ -71,6 +73,7 @@ public class GroupController {
             return ResponseEntity.notFound().build();
         }
     }
+
     @DeleteMapping("{id}")
     public ResponseEntity<?> deleteGroup(@PathVariable final long id) {
 

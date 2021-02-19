@@ -14,7 +14,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import javax.validation.Valid;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
@@ -70,7 +69,6 @@ public class PersonController {
     //** DELETE */
     @DeleteMapping("{pid}")
     public ResponseEntity<Void> deletePerson(@PathVariable("pid") Long pid) {
-
         personService.delete(pid);
         return ResponseEntity.ok().build();
     }
@@ -120,14 +118,12 @@ public class PersonController {
     }
 
     //Home work ManyToOne
-
-
     @GetMapping("{pid}/country")
     public ResponseEntity<Country> getNationality(@PathVariable("pid") long pid) {
         Person person = personService.getById(pid);
-                if(person.getCountry() == null){
-                    throw new CountryNotFoundException("Person does not have associated country");
-                }
+        if (person.getCountry() == null) {
+            throw new CountryNotFoundException("Person does not have associated country");
+        }
         return new ResponseEntity<Country>(person.getCountry(), HttpStatus.OK);
     }
 
@@ -149,7 +145,7 @@ public class PersonController {
             personService.saveAndFlush(person);
             return ResponseEntity.ok().build();
         }
-        return ResponseEntity.notFound().build();
+        return ResponseEntity.unprocessableEntity().build();
     }
 
 }

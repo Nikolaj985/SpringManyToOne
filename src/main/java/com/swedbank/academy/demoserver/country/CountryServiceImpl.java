@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class CountryServiceImpl implements CountryService{
+public class CountryServiceImpl implements CountryService {
     private CountryRepository countryRepository;
 
     @Autowired
@@ -26,31 +26,20 @@ public class CountryServiceImpl implements CountryService{
 
     @Override
     public Country getById(long id) {
-        return countryRepository.findById(id).orElseThrow(()->new CountryNotFoundException(id));
+        return countryRepository.findById(id).orElseThrow(() -> new CountryNotFoundException(id));
     }
 
     @Override
     public void save(Country country) {
-      countryRepository.save(country);
-    }
-
-    @Override
-    public void update(Country country) {
         countryRepository.save(country);
     }
 
     @Override
-    public void saveAndFlush(Country country) {
-        countryRepository.saveAndFlush(country);
-    }
-
-
-    @Override
     public void delete(long id) {
-        Country countryForDeletion = countryRepository.findById(id).orElseThrow(()->new CountryNotFoundException(id));
+        Country countryForDeletion = countryRepository.findById(id).orElseThrow(() -> new CountryNotFoundException(id));
         try {
             countryRepository.delete(countryForDeletion);
-        }catch (DataIntegrityViolationException e){
+        } catch (DataIntegrityViolationException e) {
             throw new CountryIsUsedException();
         }
     }

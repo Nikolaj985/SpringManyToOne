@@ -15,10 +15,12 @@ public class CountryExceptionController {
     public ResponseEntity<Object> exception(CountryNotFoundException exception) {
         return new ResponseEntity<>(exception.getMessage(), HttpStatus.NOT_FOUND);
     }
+
     @ExceptionHandler(value = DataIntegrityViolationException.class)
     public ResponseEntity<Object> exception(DataIntegrityViolationException exception) {
-        return new ResponseEntity<>("Country already exist!"+ exception.getMessage(), HttpStatus.NOT_IMPLEMENTED);
+        return new ResponseEntity<>("Country already exist!" + exception.getMessage(), HttpStatus.NOT_IMPLEMENTED);
     }
+
     @ExceptionHandler(value = CountryIsUsedException.class)
     public ResponseEntity<Object> exception(CountryIsUsedException exception) {
         return new ResponseEntity<>(exception.getMessage(), HttpStatus.NOT_IMPLEMENTED);
