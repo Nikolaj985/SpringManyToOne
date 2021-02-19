@@ -5,6 +5,7 @@ import com.swedbank.academy.demoserver.person.Person;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
+import org.hibernate.validator.constraints.UniqueElements;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -14,7 +15,7 @@ import java.util.Set;
 @Entity
 @Data
 @NoArgsConstructor
-@Table(name = "country")
+@Table(name = "country", uniqueConstraints = @UniqueConstraint(columnNames = {"country_name", "country_code"}))
 public class Country {
 
 
@@ -26,15 +27,15 @@ public class Country {
 
     @NonNull
     @Column(name = "country_name")
-    private  String countryName;
+    private String countryName;
 
     @NonNull
     @Column(name = "country_code")
-    private  String countryCode;
+    private String countryCode;
 
 
-   // @OneToMany(targetEntity=Person.class, mappedBy="country",cascade=CascadeType.ALL, fetch = FetchType.LAZY)
-   // private List<Person> user = new ArrayList<>();
+    // @OneToMany(targetEntity=Person.class, mappedBy="country",cascade=CascadeType.ALL, fetch = FetchType.LAZY)
+    // private List<Person> user = new ArrayList<>();
 
 
 }

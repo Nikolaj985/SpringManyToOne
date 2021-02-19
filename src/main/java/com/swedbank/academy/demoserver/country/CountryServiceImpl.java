@@ -29,7 +29,7 @@ public class CountryServiceImpl implements CountryService{
 
     @Override
     public void save(Country country) {
-        countryRepository.save(country);
+      countryRepository.save(country);
     }
 
     @Override
@@ -40,5 +40,12 @@ public class CountryServiceImpl implements CountryService{
     @Override
     public void saveAndFlush(Country country) {
         countryRepository.saveAndFlush(country);
+    }
+
+
+    @Override
+    public void delete(long id) {
+        Country countryForDeletion = countryRepository.findById(id).orElseThrow(()->new CountryNotFoundException(id));
+        countryRepository.delete(countryForDeletion);
     }
 }

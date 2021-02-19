@@ -5,8 +5,10 @@ import com.swedbank.academy.demoserver.group.exception.GroupNotFoundException;
 import com.swedbank.academy.demoserver.person.exception.PersonNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+@ControllerAdvice
 public class GroupExceptionController {
 
     @ExceptionHandler(value = GroupNotFoundException.class)
