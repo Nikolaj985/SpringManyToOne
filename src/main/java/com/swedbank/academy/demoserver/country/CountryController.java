@@ -2,6 +2,7 @@ package com.swedbank.academy.demoserver.country;
 
 
 import com.swedbank.academy.demoserver.group.Group;
+import com.swedbank.academy.demoserver.person.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,6 +34,11 @@ public class CountryController {
         Country country = countryService.getById(id);
         return new ResponseEntity<Country>(country, HttpStatus.OK);
     }
-
+//    @GetMapping("{id}/persons")
+//    public ResponseEntity<List<Person>> getUsersById(@PathVariable("id") long id) {
+//        Country country = countryService.getById(id);
+//        List<Person> persons = country.getUser();
+//        return new ResponseEntity<List<Person>>(persons, HttpStatus.OK);
+//    }
 
 }

@@ -34,8 +34,6 @@ public class PersonController {
     }
 
 
-
-
     @GetMapping(produces = "application/json")
     public ResponseEntity<List<Person>> getPersons() {
         List<Person> list = personService.getAll();
@@ -80,13 +78,8 @@ public class PersonController {
     @GetMapping("{pid}/groups")
     public ResponseEntity<Collection<Group>> getPersonGroups(@PathVariable("pid") Long pid) {
 
-        try {
-            Person person = personService.getById(pid);
-            return new ResponseEntity<Collection<Group>>(person.getGroups(), HttpStatus.OK);
-        } catch (PersonNotFoundException ex) {
-            //log.error("getPersonGroups", ex);
-            return ResponseEntity.notFound().build();
-        }
+        Person person = personService.getById(pid);
+        return new ResponseEntity<Collection<Group>>(person.getGroups(), HttpStatus.OK);
 
     }
 
@@ -129,11 +122,25 @@ public class PersonController {
 
     //Home work
 
+
+
+
     @GetMapping("{pid}/country")
     public ResponseEntity<Country> getNationality(@PathVariable("pid") long pid) {
         Person person = personService.getById(pid);
-        Country country = countryService.getById(person.getCountry().getId());
-        return new ResponseEntity<Country>(country, HttpStatus.OK);
+        return new ResponseEntity<Country>(person.getCountry(), HttpStatus.OK);
+    }
+
+
+    @PatchMapping("{pid}/country/{id}")
+    public ResponseEntity<?> setCountry(@PathVariable("pid") long pid, @PathVariable("id") long id) {
+        Person person = personService.getById(pid);
+        Country country = countryService.getById(id);
+        person.setCountry(country);
+        if(personService.update(person)){
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.badRequest().build();
     }
 
 

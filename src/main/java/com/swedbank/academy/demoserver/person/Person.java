@@ -29,7 +29,6 @@ public class Person {
     private String name;
 
     @NotNull
-    @NotBlank
     @Column(name = "middle_name")
     private String middlename;
 
@@ -41,11 +40,8 @@ public class Person {
     private String phone;
 
 
-    //@Column(name = "country_id")
-    //private long countryId;
-
-    @ManyToOne
-    @JoinColumn(name = "country_id")
+    @ManyToOne()
+    @JoinColumn(name = "country_id", referencedColumnName = "id")
     private Country country;
 
 
@@ -56,7 +52,4 @@ public class Person {
     @EqualsAndHashCode.Exclude
     private Set<Group> groups;
 
-    public void setCountry(Country country) {
-        this.country = country;
-    }
 }

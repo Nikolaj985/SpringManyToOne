@@ -7,6 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import javax.validation.ConstraintViolationException;
+
 @ControllerAdvice
 public class PersonExceptionController {
     @ExceptionHandler(value = PersonNotFoundException.class)
@@ -18,5 +20,9 @@ public class PersonExceptionController {
     public ResponseEntity<Object> exception(CountryNotFoundException exception) {
         return new ResponseEntity<>(exception.getMessage(), HttpStatus.NOT_FOUND);
     }
+
+
+
+
 }
 

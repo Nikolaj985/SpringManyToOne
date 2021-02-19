@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -31,8 +33,8 @@ public class Country {
     private  String countryCode;
 
 
-    //@OneToMany(mappedBy="country")
-    //private Set<Person> persons;
+   // @OneToMany(targetEntity=Person.class, mappedBy="country",cascade=CascadeType.ALL, fetch = FetchType.LAZY)
+   // private List<Person> user = new ArrayList<>();
 
 
 }
