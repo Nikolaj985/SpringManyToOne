@@ -103,26 +103,22 @@ public class PersonController {
 
     @DeleteMapping("{pid}/groups/{id}")
     public ResponseEntity<?> removeFromGroup(@PathVariable("pid") long pid, @PathVariable("id") long id) {
-        try {
-            Person person = personService.getById(pid);
-            Group group = groupService.findById(id);
-            Set<Group> groups = person.getGroups();
-            if (groups.contains(group)) {
-                groups.remove(group);
-                person.setGroups(groups);
-                personService.saveAndFlush(person);
-            }
-
+        Person person = personService.getById(pid);
+        Group group = groupService.findById(id);
+        Set<Group> groups = person.getGroups();
+        if (groups.contains(group)) {
+            groups.remove(group);
+            person.setGroups(groups);
+            personService.saveAndFlush(person);
             return ResponseEntity.ok().build();
-        } catch (GroupNotFoundException | PersonNotFoundException ex) {
-            return ResponseEntity.notFound().build();
         }
+
+        return ResponseEntity.notFound().build();
+
 
     }
 
-    //Home work
-
-
+    //Home work ManyToOne
 
 
     @GetMapping("{pid}/country")
@@ -137,10 +133,19 @@ public class PersonController {
         Person person = personService.getById(pid);
         Country country = countryService.getById(id);
         person.setCountry(country);
-        if(personService.update(person)){
+        personService.saveAndFlush(person);
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("{pid}/country")
+    public ResponseEntity<?> removeCountry(@PathVariable("pid") long pid) {
+        Person person = personService.getById(pid);
+        if (person.getCountry() != null) {
+            person.setCountry(null);
+            personService.saveAndFlush(person);
             return ResponseEntity.ok().build();
         }
-        return ResponseEntity.badRequest().build();
+        return ResponseEntity.notFound().build();
     }
 
 
